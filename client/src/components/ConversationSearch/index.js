@@ -1,16 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import * as S from './styled';
 
-export default class ConversationSearch extends Component {
-  render() {
-    return (
-      <S.ConversationSearchContainer>
-        <S.ConversationSearchInput
-          type="search"
-          placeholder="Search Messages"
-        />
-      </S.ConversationSearchContainer>
-    );
-  }
-}
+const ConversationSearch = () => (
+  <S.ConversationSearchContainer>
+    <S.ConversationSearchInput
+      type="search"
+      placeholder="Search Messages"
+    />
+  </S.ConversationSearchContainer>
+);
+
+export default ConversationSearch;

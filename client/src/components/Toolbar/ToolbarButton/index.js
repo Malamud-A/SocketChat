@@ -1,12 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import { ToolbarButtonRoot } from '../styled';
 
-export default class ToolbarButton extends Component {
-  render() {
-    const { icon } = this.props;
-    return (
-      <ToolbarButtonRoot className={`${icon}`} />
-    );
-  }
-}
+const ToolbarButton = ({ icon }) => (
+  <ToolbarButtonRoot className={`${icon}`} />
+);
+
+ToolbarButton.propTypes = {
+  icon: PropTypes.string.isRequired,
+};
+
+export default ToolbarButton;

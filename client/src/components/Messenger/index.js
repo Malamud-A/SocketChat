@@ -1,40 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ConversationList from '../ConversationList';
 import MessageList from '../MessageList';
 
 import * as S from './styled';
 
-export default class Messenger extends Component {
-  render() {
-    return (
-      <S.MessengerRoot>
-        {/* <Toolbar
-          title="Messenger"
-          leftItems={[
-            <ToolbarButton key="cog" icon="ion-ios-cog" />
-          ]}
-          rightItems={[
-            <ToolbarButton key="add" icon="ion-ios-add-circle-outline" />
-          ]}
-        /> */}
+const Messenger = () => (
+  <S.MessengerRoot>
+    <S.Sidebar>
+      <ConversationList />
+    </S.Sidebar>
 
-        {/* <Toolbar
-          title="Conversation Title"
-          rightItems={[
-            <ToolbarButton key="info" icon="ion-ios-information-circle-outline" />,
-            <ToolbarButton key="video" icon="ion-ios-videocam" />,
-            <ToolbarButton key="phone" icon="ion-ios-call" />
-          ]}
-        /> */}
+    <S.Content>
+      <MessageList />
+    </S.Content>
+  </S.MessengerRoot>
+);
 
-        <S.Sidebar>
-          <ConversationList />
-        </S.Sidebar>
-
-        <S.Content>
-          <MessageList />
-        </S.Content>
-      </S.MessengerRoot>
-    );
-  }
-}
+export default Messenger;

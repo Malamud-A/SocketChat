@@ -1,16 +1,29 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import * as S from './styled';
 
-export default class Toolbar extends Component {
-  render() {
-    const { title, leftItems, rightItems } = this.props;
-    return (
-      <S.ToolbarRoot>
-        <S.Items>{ leftItems }</S.Items>
-        <S.ToolbarTitle>{ title }</S.ToolbarTitle>
-        <S.Items right>{ rightItems }</S.Items>
-      </S.ToolbarRoot>
-    );
-  }
-}
+const Toolbar = ({
+  title,
+  leftItems,
+  rightItems,
+}) => (
+  <S.ToolbarRoot>
+    <S.Items>{ leftItems }</S.Items>
+    <S.ToolbarTitle>{ title }</S.ToolbarTitle>
+    <S.Items right>{ rightItems }</S.Items>
+  </S.ToolbarRoot>
+);
+
+Toolbar.propTypes = {
+  title: PropTypes.string.isRequired,
+  leftItems: PropTypes.array,
+  rightItems: PropTypes.array,
+};
+
+Toolbar.defaultProps = {
+  leftItems: [],
+  rightItems: [],
+};
+
+export default Toolbar;

@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 
 export const BubbleContainer = styled.div`
@@ -13,7 +14,12 @@ export const Bubble = styled.div`
   border-radius: 2px 20px 20px 2px;
 `;
 
-export const MessageContainer = styled.div`
+export const MessageContainer = styled(({
+  start,
+  end,
+  mine,
+  ...rest
+}) => (<div {...rest} />))`
   display: flex;
   flex-direction: column;
   ${({ mine, start, end }) => (mine && `
@@ -43,7 +49,7 @@ export const MessageContainer = styled.div`
   `)};
   
   ${({ end }) => end && `
-      ${Bubble} {      
+      ${Bubble} {
         border-bottom-left-radius: 20px;
       }
   `};

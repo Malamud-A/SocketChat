@@ -1,21 +1,24 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import * as S from './styled';
 
-export default class Compose extends Component {
-  render() {
-    return (
-      <S.ComposeRoot>
-        <S.ComposeInput
-          type="text"
-          className="compose-input"
-          placeholder="Type a message, @name"
-        />
+const Compose = ({ rightItems }) => (
+  <S.ComposeRoot>
+    <S.ComposeInput
+      type="text"
+      className="compose-input"
+      placeholder="Type a message, @name"
+    />
 
-        {
-          this.props.rightItems
-        }
-      </S.ComposeRoot>
-    );
-  }
-}
+    {
+      rightItems
+    }
+  </S.ComposeRoot>
+);
+
+Compose.propTypes = {
+  rightItems: PropTypes.array.isRequired,
+};
+
+export default Compose;
