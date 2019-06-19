@@ -1,7 +1,10 @@
 import React from 'react';
+import Messenger from './components/Messenger';
 
 const App = () => (
-  <div/>
+  <div>
+    <Messenger />
+  </div>
 );
 
 export default App;
