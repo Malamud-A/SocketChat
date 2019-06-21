@@ -1,5 +1,7 @@
 import styled from 'styled-components';
-import { ToolbarButtonRoot } from '../../Toolbar/styled';
+import {
+  ToolbarButtonRoot,
+} from '../../Toolbar/styled';
 
 export const ComposeRoot = styled.div`
   padding: 10px;
@@ -38,4 +40,3 @@ export const ComposeInput = styled.input`
     opacity: 0.3;
   }
 `;
-

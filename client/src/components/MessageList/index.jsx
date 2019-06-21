@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import moment from 'moment';
+import React, {
+  useState, useEffect,
+} from 'react';
+import {
+  DateTime,
+} from 'luxon';
 
 import Compose from '../Compose';
 import Toolbar from '../Toolbar';
 import ToolbarButton from '../Toolbar/ToolbarButton';
-import Message from '../Message/index.jsx';
+import Message from '../Message';
 
 import * as S from './styled';
 
@@ -98,7 +102,7 @@ const MessageList = () => {
       const current = messages[i];
       const next = messages[i + 1];
       const isMine = current.author === MY_USER_ID;
-      const currentMoment = moment(current.timestamp);
+      const currentMoment = DateTime.fromMillis(current.timestamp);
       let prevBySameAuthor = false;
       let nextBySameAuthor = false;
       let startsSequence = true;
@@ -106,8 +110,8 @@ const MessageList = () => {
       let showTimestamp = true;
 
       if (previous) {
-        const previousMoment = moment(previous.timestamp);
-        const previousDuration = moment.duration(currentMoment.diff(previousMoment));
+        const previousMoment = DateTime.fromMillis(previous.timestamp);
+        const previousDuration = currentMoment.diff(previousMoment);
         prevBySameAuthor = previous.author === current.author;
 
         if (prevBySameAuthor && previousDuration.as('hours') < 1) {
@@ -120,8 +124,8 @@ const MessageList = () => {
       }
 
       if (next) {
-        const nextMoment = moment(next.timestamp);
-        const nextDuration = moment.duration(nextMoment.diff(currentMoment));
+        const nextMoment = DateTime.fromMillis(next.timestamp);
+        const nextDuration = nextMoment.diff(currentMoment);
         nextBySameAuthor = next.author === current.author;
 
         if (nextBySameAuthor && nextDuration.as('hours') < 1) {

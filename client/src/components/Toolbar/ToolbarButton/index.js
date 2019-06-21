@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { ToolbarButtonRoot } from '../styled';
+import {
+  ToolbarButtonRoot,
+} from '../styled';
 
 const ToolbarButton = ({ icon }) => (
   <ToolbarButtonRoot className={`${icon}`} />

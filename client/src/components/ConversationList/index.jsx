@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, {
+  useState, useEffect,
+} from 'react';
 
 import ConversationSearch from '../ConversationSearch';
 import ConversationListItem from '../ConversationListItem';
@@ -12,29 +13,31 @@ const ConversationList = () => {
   const [conversations, setConversations] = useState([]);
 
   const getConversations = () => {
-    axios.get('https://randomuser.me/api/?results=20').then((response) => {
-      const res = response.data.results.map(result => ({
-        photo: result.picture.large,
-        name: `${result.name.first} ${result.name.last}`,
-        text: 'Hello world! This is a long message that needs to be truncated.',
-      }));
-      setConversations([...conversations, ...res]);
-    });
+    fetch('https://randomuser.me/api/?results=20')
+      .then(response => response.json())
+      .then((responseJSON) => {
+        const res = responseJSON.results.map(result => ({
+          photo: result.picture.large,
+          name: `${result.name.first} ${result.name.last}`,
+          text: 'Hello world! This is a long message that needs to be truncated.',
+        }));
+        setConversations([...conversations, ...res]);
+      });
   };
 
   useEffect(() => {
     getConversations();
-  }, [])
+  }, []);
 
   return (
     <S.ConversationListRoot>
       <Toolbar
         title="Messenger"
         leftItems={[
-          <ToolbarButton key="cog" icon="ion-ios-cog"/>
+          <ToolbarButton key="cog" icon="ion-ios-cog"/>,
         ]}
         rightItems={[
-          <ToolbarButton key="add" icon="ion-ios-add-circle-outline"/>
+          <ToolbarButton key="add" icon="ion-ios-add-circle-outline"/>,
         ]}
       />
       <ConversationSearch/>
@@ -50,4 +53,4 @@ const ConversationList = () => {
   );
 };
 
-export default ConversationList
+export default ConversationList;

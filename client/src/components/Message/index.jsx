@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
+import {
+  DateTime,
+} from 'luxon';
 
 import * as S from './styled';
 
@@ -11,7 +13,7 @@ const Message = ({
   endsSequence,
   showTimestamp,
 }) => {
-  const friendlyTimestamp = moment(data.timestamp).format('LLLL');
+  const friendlyTimestamp = DateTime.fromMillis(data.timestamp).toFormat('DDDD t');
   return (
     <S.MessageContainer
       mine={isMine}

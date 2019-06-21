@@ -6,11 +6,11 @@ import * as S from './styled';
 
 const Messenger = () => (
   <S.MessengerRoot>
-    <S.Sidebar>
+    <S.Sidebar scrollable>
       <ConversationList />
     </S.Sidebar>
 
-    <S.Content>
+    <S.Content scrollable>
       <MessageList />
     </S.Content>
   </S.MessengerRoot>
