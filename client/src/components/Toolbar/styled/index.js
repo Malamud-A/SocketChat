@@ -9,7 +9,8 @@ export const ToolbarRoot = styled.div`
   border-bottom: 1px solid #eeeef1;
 
   position: sticky;
-  top: 0px;
+  top: 0;
+  min-height: 56px;
   @supports (backdrop-filter: blur(20px)) {
     & {
       border: none;
@@ -25,7 +26,11 @@ export const ToolbarTitle = styled.h1`
   font-weight: 800;
 `;
 
-export const ToolbarButtonRoot = styled.i`
+export const ToolbarButtonRoot = styled.i.attrs(({ submit }) => ({
+  as: 'button',
+  type: submit ? 'submit' : 'button',
+}))`
+  border: none;
   color: #007aff;
   font-size: 28px;
   transition: all 0.1s;

@@ -13,7 +13,7 @@ const Message = ({
   endsSequence,
   showTimestamp,
 }) => {
-  const friendlyTimestamp = DateTime.fromMillis(data.timestamp).toFormat('DDDD t');
+  const friendlyTimestamp = data.timestamp.toFormat('DDDD t');
   return (
     <S.MessageContainer
       mine={isMine}

@@ -1,0 +1,31 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Server side to the techsupp chat",
+  "main": "server.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/_mocha ./test/**/*.test.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/web-pal/supportChat.git"
+  },
+  "author": "Alex Malamud",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/web-pal/supportChat/issues"
+  },
+  "homepage": "https://github.com/web-pal/supportChat#readme",
+  "dependencies": {
+    "@koa/cors": "^3.0.0",
+    "knex": "^0.17.6",
+    "koa": "^2.7.0",
+    "pg": "^7.11.0",
+    "socket.io": "^2.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/register": "^7.4.4"
+  }
+}

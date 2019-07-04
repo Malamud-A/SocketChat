@@ -4,17 +4,19 @@ export const ConversationListItemRoot = styled.div`
   display: flex;
   align-items: center;
   padding: 10px;
+  ${({ selected }) => (selected && 'background: #eeeef1')};
   :hover {
-    background: #eeeef1;
+    background: #ddddf1;
     cursor: pointer;
   }
 `;
 
-export const ConversationPhoto = styled.img`
+export const ConversationPhoto = styled.div`
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  object-fit: cover;
+  background: url(${({ photo }) => photo}) no-repeat center center;
+  background-size: 75%;
   margin-right: 10px;
 `;
 

@@ -1,6 +1,5 @@
-import React, {
-  useState, useEffect,
-} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import {
   DateTime,
 } from 'luxon';
@@ -12,97 +11,35 @@ import Message from '../Message';
 
 import * as S from './styled';
 
-const MessageList = () => {
-  const [messages, setMessages] = useState([]);
-  const MY_USER_ID = 'apple';
-
-  const getMessages = () => {
-    setMessages(
-      [
-        ...messages,
-        ...[
-          {
-            id: 1,
-            author: 'apple',
-            message: 'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-            timestamp: new Date().getTime(),
-          },
-          {
-            id: 2,
-            author: 'orange',
-            message: 'It looks like it wraps exactly as it is supposed to. Lets see what a reply looks like!',
-            timestamp: new Date().getTime(),
-          },
-          {
-            id: 3,
-            author: 'orange',
-            message: 'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-            timestamp: new Date().getTime(),
-          },
-          {
-            id: 4,
-            author: 'apple',
-            message: 'It looks like it wraps exactly as it is supposed to. Lets see what a reply looks like!',
-            timestamp: new Date().getTime(),
-          },
-          {
-            id: 5,
-            author: 'apple',
-            message: 'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-            timestamp: new Date().getTime(),
-          },
-          {
-            id: 6,
-            author: 'apple',
-            message: 'It looks like it wraps exactly as it is supposed to. Lets see what a reply looks like!',
-            timestamp: new Date().getTime(),
-          },
-          {
-            id: 7,
-            author: 'orange',
-            message: 'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-            timestamp: new Date().getTime(),
-          },
-          {
-            id: 8,
-            author: 'orange',
-            message: 'It looks like it wraps exactly as it is supposed to. Lets see what a reply looks like!',
-            timestamp: new Date().getTime(),
-          },
-          {
-            id: 9,
-            author: 'apple',
-            message: 'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-            timestamp: new Date().getTime(),
-          },
-          {
-            id: 10,
-            author: 'orange',
-            message: 'It looks like it wraps exactly as it is supposed to. Lets see what a reply looks like!',
-            timestamp: new Date().getTime(),
-          },
-        ],
-      ],
-    );
-  };
-
-  useEffect(() => {
-    getMessages();
-  }, []);
-
+const MessageList = ({
+  selectedConversation,
+  userId,
+  socket,
+  conversations,
+}) => {
+  const normalizeMessages = () => conversations.find(
+    conv => conv.conversation_id === selectedConversation.conversation_id,
+  )?.messages.map(message => ({
+    id: message.message_id,
+    message: message.message,
+    author: message.author,
+    timestamp: DateTime.fromISO(message.created_at),
+  }));
   /* TODO: maybe this can be refactored */
 
   const renderMessages = () => {
+    console.log('messages render!', normalizeMessages());
     let i = 0;
-    const messageCount = messages.length;
+    const messageCount = normalizeMessages()?.length;
     const res = [];
 
     while (i < messageCount) {
-      const previous = messages[i - 1];
-      const current = messages[i];
-      const next = messages[i + 1];
-      const isMine = current.author === MY_USER_ID;
-      const currentMoment = DateTime.fromMillis(current.timestamp);
+      const previous = normalizeMessages()[i - 1];
+      const current = normalizeMessages()[i];
+      const next = normalizeMessages()[i + 1];
+      const isMine = current.author === userId;
+      const currentMoment = current.timestamp;
+      console.log(current.timestamp);
       let prevBySameAuthor = false;
       let nextBySameAuthor = false;
       let startsSequence = true;
@@ -110,7 +47,7 @@ const MessageList = () => {
       let showTimestamp = true;
 
       if (previous) {
-        const previousMoment = DateTime.fromMillis(previous.timestamp);
+        const previousMoment = previous.timestamp;
         const previousDuration = currentMoment.diff(previousMoment);
         prevBySameAuthor = previous.author === current.author;
 
@@ -124,7 +61,7 @@ const MessageList = () => {
       }
 
       if (next) {
-        const nextMoment = DateTime.fromMillis(next.timestamp);
+        const nextMoment = next.timestamp;
         const nextDuration = nextMoment.diff(currentMoment);
         nextBySameAuthor = next.author === current.author;
 
@@ -154,28 +91,34 @@ const MessageList = () => {
   return (
     <div>
       <Toolbar
-        title="Conversation Title"
-        rightItems={[
-          <ToolbarButton key="info" icon="ion-ios-information-circle-outline" />,
-          <ToolbarButton key="video" icon="ion-ios-videocam" />,
-          <ToolbarButton key="phone" icon="ion-ios-call" />,
-        ]}
+        title={selectedConversation.subject}
       />
 
       <S.MessageListContainer>
-        {renderMessages()}
+        {!!normalizeMessages() && renderMessages()}
       </S.MessageListContainer>
 
-      <Compose rightItems={[
-        <ToolbarButton key="photo" icon="ion-ios-camera" />,
-        <ToolbarButton key="image" icon="ion-ios-image" />,
-        <ToolbarButton key="audio" icon="ion-ios-mic" />,
-        <ToolbarButton key="money" icon="ion-ios-card" />,
-        <ToolbarButton key="games" icon="ion-logo-game-controller-b" />,
-        <ToolbarButton key="emoji" icon="ion-ios-happy" />,
-      ]}/>
+      <Compose
+        rightItems={[
+          <ToolbarButton
+            key="send"
+            icon="ion-ios-send"
+            submit
+          />,
+        ]}
+        socket={socket}
+        selectedConversation={selectedConversation}
+        userId={userId}
+      />
     </div>
   );
+};
+
+MessageList.propTypes = {
+  selectedConversation: PropTypes.object.isRequired,
+  userId: PropTypes.number.isRequired,
+  socket: PropTypes.object.isRequired,
+  conversations: PropTypes.array.isRequired,
 };
 
 export default MessageList;

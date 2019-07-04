@@ -10,7 +10,7 @@ export const ComposeRoot = styled.div`
   background: white;
   border-top: 1px solid #eeeef1;
   position: fixed;
-  width: calc(100% - 20px);
+  width: calc(100% - 370px);
   bottom: 0;
   @supports (backdrop-filter: blur(20px)) {
     & {
@@ -29,6 +29,9 @@ export const ComposeRoot = styled.div`
   }
 `;
 
+export const ComposeForm = styled.form`
+  width: 100%;
+`;
 
 export const ComposeInput = styled.input`
   flex: 1;
@@ -36,6 +39,7 @@ export const ComposeInput = styled.input`
   font-size: 14px;
   height: 40px;
   background: none;
+  width: 100%;
   ::placeholder {
     opacity: 0.3;
   }

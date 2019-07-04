@@ -6,19 +6,23 @@ import shave from 'shave';
 
 import * as S from './styled';
 
-const ConversationListItem = ({ data }) => {
+const ConversationListItem = ({ data, onClick, selected}) => {
   useEffect(() => {
     shave('.conversation-snippet', 20);
   }, []);
 
-  const { photo, name, text } = data;
+  const { photo, subject, messages } = data;
 
   return (
-    <S.ConversationListItemRoot>
-      <S.ConversationPhoto src={photo} alt="conversation" />
+    <S.ConversationListItemRoot onClick={onClick} selected={selected}>
+      <S.ConversationPhoto
+        photo={photo || 'https://png.pngtree.com/svg/20170504/a4ebc5629c.svg'}
+      />
       <div>
-        <S.ConversationTitle>{ name }</S.ConversationTitle>
-        <S.ConversationSnippet className="conversation-snippet">{ text }</S.ConversationSnippet>
+        <S.ConversationTitle>{ subject }</S.ConversationTitle>
+        <S.ConversationSnippet className="conversation-snippet">
+          { messages[messages.length - 1]?.message || 'This thread is empty' }
+        </S.ConversationSnippet>
       </div>
     </S.ConversationListItemRoot>
   );
@@ -27,9 +31,11 @@ const ConversationListItem = ({ data }) => {
 ConversationListItem.propTypes = {
   data: PropTypes.shape({
     photo: PropTypes.string,
-    name: PropTypes.string,
-    text: PropTypes.string,
+    subject: PropTypes.string,
+    messages: PropTypes.array,
   }).isRequired,
+  onClick: PropTypes.func.isRequired,
+  selected: PropTypes.bool.isRequired,
 };
 
 export default ConversationListItem;
