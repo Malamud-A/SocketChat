@@ -22,7 +22,7 @@
     "knex": "^0.17.6",
     "koa": "^2.7.0",
     "pg": "^7.11.0",
-    "socket.io": "^2.2.0"
+    "socket.io": "^2.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
