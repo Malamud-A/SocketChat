@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/web-pal/supportChat#readme",
   "dependencies": {
-    "luxon": "1.8.2",
+    "luxon": "2.5.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "shave": "^2.5.2",
